@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:fragment="key_css">
+    <style th:inline="text">
+        [# th:if="${theme.config.other.rip_mode}"]
+        html {
+
+            -webkit-filter: grayscale(100%);
+            -moz-filter: grayscale(100%);
+            -ms-filter: grayscale(100%);
+            -o-filter: grayscale(100%);
+            filter: grayscale(100%);
+            filter: progid:DXImageTransform.Microsoft.BasicImage(grayscale=1);
+        }
+        [/]
+        @font-face {
+            font-family: "Joe Font";
+            font-weight: 400;
+            font-style: normal;
+            font-display: swap;
+            [# th:if="${theme.config.custom.custom_font != ''} and ${theme.config.custom.custom_font != null}"]
+            src: url("[[${theme.config.custom.custom_font}]]") format("woff2");
+            [/]
+            [# th:if="${theme.config.theme.web_font != 'off'} and (${theme.config.custom.custom_font != null} or ${theme.config.custom.custom_font != ''})"]
+            src: url("[[${(#strings.trim(theme.config.basic.source_link) !='' && theme.config.basic.enable_source_link)? theme.config.basic.source_link : '/themes/theme-Joe3'}]]/assets/font/[[${theme.config.theme.web_font}]]") format("woff2");
+            [/]
+
+        }
+        html body {
+            --waline-avatar-size: 2.25rem;
+            --waline-m-avatar-size: calc(var(--waline-avatar-size) * 9 / 13);
+            --waline-theme-color:[[${theme.config.basic.mode_color_light}]];
+            --waline-active-color: [[${theme.config.basic.mode_color_light}]];
+
+            --theme: [[${theme.config.basic.mode_color_light}]];
+            --wave-color: [[${theme.config.beauty.light_color}?:'#fff']];
+            --scroll-bar: [[${theme.config.theme.scrollbar_color ?: '#c0c4cc'}]];
+            --loading-bar:  [[${theme.config.theme.loading_bar_color ?: 'var(--theme)'}]];
+            --img-max-width: 100%;
+            font-family: "Joe Font", "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, "sans-serif";
+
+        }
+        html[data-mode='dark'] body {
+
+            --waline-theme-color:[[${theme.config.basic.mode_color_dark}?:'#9999ff']];
+            --waline-active-color: [[${theme.config.basic.mode_color_dark}?:'#9999ff']];
+            --theme: [[${theme.config.basic.mode_color_dark}?:'#9999ff']];
+            --wave-color: [[${theme.config.beauty.dark_color}?:'#fff']];
+            --scroll-bar: [[${theme.config.theme.scrollbar_color ?: '#666'}]];
+            --loading-bar: [[${theme.config.theme.loading_bar_color ?: 'var(--theme)'}]];
+        }
+        ::-webkit-scrollbar {
+            width: [[${theme.config.theme.scrollbar_width ?: '8px'}]];
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--scroll-bar);
+        }
+        [# th:if="${theme.config.basic.enable_background_light} and ${theme.config.basic.background_light_mode != ''}"]
+        html[data-mode="light"] body {
+            background-position: top center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-image: url("[[${theme.config.basic.background_light_mode}]]");
+        }
+        [/]
+        [# th:if="${theme.config.basic.enable_background_light != true} or ${theme.config.basic.background_light_mode == ''} or ${theme.config.basic.background_light_mode == null}"]
+        html[data-mode="light"] body {
+            background-image: none;
+        }
+        [/]
+        [# th:if="${theme.config.basic.enable_background_dark} and ${theme.config.basic.background_dark_mode != ''}"]
+        html[data-mode="dark"] body {
+            background-position: top center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-image: url("[[${theme.config.basic.background_dark_mode}]]");
+        }
+        [/]
+        [# th:if="${theme.config.basic.enable_background_dark != true} or ${theme.config.basic.background_dark_mode == ''} or ${theme.config.basic.background_dark_mode == null}"]
+        html[data-mode="dark"] body {
+            background-image: none;
+        }
+        [/]
+
+
+    </style>
+
+</th:block>
+</html>
